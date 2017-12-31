@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 17:49:24 by fbabin            #+#    #+#              #
-#    Updated: 2017/12/21 21:41:47 by misteir          ###   ########.fr        #
+#    Updated: 2017/12/30 00:41:04 by misteir          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ NAME			=	libftprintf.a
 
 CC				=	gcc
 CFLAGS			=	-Wall -Werror -Wextra
+
+_SRCS			=	ft_printf.c padding.c xtract.c handler_wc.c handler_ws.c \
 
 _LSRCS			=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 					ft_memmove.c ft_memchr.c ft_memcmp.c ft_strlen.c \
@@ -43,7 +45,7 @@ _LSRCS			=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 					ft_char2dump.c ft_int2dump.c ft_strspn.c ft_strcspn.c \
 					ft_strmjoin.c \
 
-SRCS_DIR		=	srcs
+SRCS_DIR		=	.
 LSRCS_DIR		=	libft
 SRCS			=	$(addprefix $(SRCS_DIR)/, $(_SRCS))
 LSRCS			=	$(addprefix $(LSRCS_DIR)/, $(_LSRCS))

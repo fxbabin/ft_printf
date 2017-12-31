@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2017/12/19 16:05:20 by fbabin           ###   ########.fr       */
+/*   Updated: 2017/12/30 00:42:51 by misteir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 ** --------------------------------- DEFINES ---------------------------------
 */
 
+# define BUFF_SIZE 128
+
 # define MIN_INT -2147483648
 # define MAX_INT 2147483647
 # define MIN_UINT -4294967295
@@ -46,6 +48,13 @@
 ** ------------------------------- STRUCTURES ----------------------------------
 */
 
+typedef struct			s_buff
+{
+	char				buff[BUFF_SIZE + 1];
+	int					len;
+	int					pos;
+}						t_buff;
+
 typedef struct			s_printf
 {
 	int					prec;
@@ -59,7 +68,6 @@ typedef struct			s_printf
 	char				mod1;
 	char				mod2;
 	char				neg;
-	char				z;
 }						t_printf;
 
 /*
@@ -72,58 +80,30 @@ typedef struct			s_printf
 ** ---------------------------- PRINTF FUNCTIONS -------------------------------
 */
 
-int						ft_vfprintf(int fd, const char *restrict format,
-							va_list ap);
 int						ft_printf(const char *restrict format, ...);
-int						ft_fprintf(int fd, const char *restrict format, ...);
-int						ft_sprintf(char **str, const char *restrict format,
-							...);
 
 /*
 ** ---------------------------- GENERAL FUNCTIONS ------------------------------
 */
 
-int						ft_read_bis(char *str, int *len);
-char					*ft_readf(const char *fmt, va_list args, char *buff,
-							int *len);
-char					*ft_handler_bis(char *tm, t_printf *t, int *len);
-char					*ft_hdl_bis(char *tm, t_printf *t);
-int						ft_charinset(char c, const char *charset);
-char					*ft_charargs(t_printf *t, va_list args);
-t_printf				*ft_xtractor(char *str, int len);
-char					*ft_handler(char *buff, char *tmp, va_list args,
-							int *len);
+void					ft_readf(const char *fmt, t_buff *b, va_list args);
+void					ft_handler(t_buff *b, const char *fmt, va_list args,
+							int idx);
+void					ft_xtractor(t_printf *t, const char *fmt, int len);
+
 /*
 ** ---------------------------- HANDLE FUNCTIONS ------------------------------
 */
 
-char					*ft_handle_colors(char *str, int *len);
-char					*ft_handle_float(va_list args, t_printf *t);
-char					*ft_handle_str(va_list args, t_printf *t);
-char					*ft_handle_percent(va_list args, t_printf *t);
-char					*ft_handlep(va_list args, t_printf *t);
-char					*ft_handle_b(va_list args, t_printf *t);
-char					*ft_handle_char(va_list args, t_printf *t);
 char					*ft_handle_wchar(va_list args, t_printf *t);
-char					*ft_handleint(va_list args, t_printf *t);
-char					*ft_handle_int(va_list args, t_printf *t);
-char					*ft_handleoctal(va_list args, t_printf *t);
-char					*ft_handle_octal(va_list args, t_printf *t);
-char					*ft_handlehex(va_list args, t_printf *t);
-char					*ft_handle_hex(va_list args, t_printf *t);
-char					*ft_handleuint(va_list args, t_printf *t);
-char					*ft_handle_uint(va_list args, t_printf *t);
-char					*ft_getwchar(wchar_t wc);
 char					*ft_handle_wstr(va_list args, t_printf *t);
+char					*ft_getwchar(wchar_t wc);
 
 /*
 ** ---------------------------- UTILS FUNCTIONS ------------------------------
 */
 
-void					ft_dfree(void *s, void *t);
-t_printf				*ft_plst_init(void);
+void					bflush(t_buff *b, const char *str, int n);
 int						ft_wcharlen(wchar_t wc);
-char					*ft_rep(char *str, char old, char fresh);
-int						ft_backsearch(char *str, int len);
 
 #endif
