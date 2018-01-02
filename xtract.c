@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 20:11:01 by fbabin            #+#    #+#             */
-/*   Updated: 2017/12/26 10:37:47 by misteir          ###   ########.fr       */
+/*   Updated: 2018/01/02 23:25:33 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		ft_xtractor(t_printf *t, const char *fmt, int len)
 		t->zero = 0;
 	if (t->mod1 != t->mod2)
 		t->mod2 = 0;
-	t->zero = (t->minus) ? 0 : t->zero;
+	t->zero = (t->minus || t->prec > 0) ? 0 : t->zero;
 	t->nb = ft_xtract_number(fmt);
 	t->nb = (t->prec > t->nb) ? 0 : t->nb;
 }
