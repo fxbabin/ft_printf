@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 17:49:24 by fbabin            #+#    #+#              #
-#    Updated: 2017/12/30 00:41:04 by misteir          ###   ########.fr        #
+#    Updated: 2017/12/31 11:18:06 by misteir          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CC				=	gcc
 CFLAGS			=	-Wall -Werror -Wextra
 
 _SRCS			=	ft_printf.c padding.c xtract.c handler_wc.c handler_ws.c \
+					handler_num.c \
 
 _LSRCS			=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 					ft_memmove.c ft_memchr.c ft_memcmp.c ft_strlen.c \

@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 15:54:08 by misteir           #+#    #+#             */
-/*   Updated: 2017/12/31 01:27:40 by misteir          ###   ########.fr       */
+/*   Updated: 2018/01/01 19:16:23 by misteir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1007,7 +1007,11 @@ int		main(void)
 	ft_compare(r1, r2, s1, s2);
 	write(1, "\n", 1);
 	//printf("%10s is a string\n", "this");
-	//ft_printf("[%s]", "abc"); 
+	ft_printf("%0+5d", -42); 
+	printf("%0+5d", -42); 
+	//printf("[%05d]", 42); 
+	//ft_printf("[%05d]", 42); 
+	//printf("[%05d]", 42); 
 	//printf("[%s]\n", "abc"); 
 	return (0);
 }
