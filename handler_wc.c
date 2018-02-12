@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 16:10:52 by misteir           #+#    #+#             */
-/*   Updated: 2017/12/27 16:44:22 by misteir          ###   ########.fr       */
+/*   Updated: 2018/02/12 16:55:08 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,70 +33,60 @@ int		ft_wcharlen(wchar_t wc)
 	return (i);
 }
 
-char	*ft_getwchar(wchar_t wc)
+void	ft_getwchar(t_buff *b, wchar_t wc, int len)
 {
-	char	*str;
+	char	tmp[5];
 
-	if (!(str = ft_strnew(ft_wcharlen(wc))))
-		return (NULL);
+	ft_bzero(&tmp, 5);
 	if ((wc <= 127 && MB_CUR_MAX >= 1) || (wc <= 255 && MB_CUR_MAX == 1))
-		str[0] = wc;
+		tmp[0] = wc;
 	else if (wc <= 2047 && MB_CUR_MAX >= 2)
 	{
-		str[0] = (wc >> 6) | 0xC0;
-		str[1] = (wc & 0x3F) | 0x80;
+		tmp[0] = (wc >> 6) | 0xC0;
+		tmp[1] = (wc & 0x3F) | 0x80;
 	}
 	else if (wc <= 65535 && MB_CUR_MAX >= 3)
 	{
-		str[0] = (wc >> 12) | 0xE0;
-		str[1] = (wc >> 6 & 0x3F) | 0x80;
-		str[2] = (wc & 0x3F) | 0x80;
+		tmp[0] = (wc >> 12) | 0xE0;
+		tmp[1] = (wc >> 6 & 0x3F) | 0x80;
+		tmp[2] = (wc & 0x3F) | 0x80;
 	}
 	else if (wc <= 1114111 && MB_CUR_MAX >= 4)
 	{
-		str[0] = (wc >> 18) | 0xF0;
-		str[1] = (wc >> 12 & 0x3F) | 0x80;
-		str[2] = (wc >> 6 & 0x3F) | 0x80;
-		str[3] = (wc & 0x3F) | 0x80;
+		tmp[0] = (wc >> 18) | 0xF0;
+		tmp[1] = (wc >> 12 & 0x3F) | 0x80;
+		tmp[2] = (wc >> 6 & 0x3F) | 0x80;
+		tmp[3] = (wc & 0x3F) | 0x80;
 	}
-	return (str);
+	bflush(b, (const char *)&tmp, len);
 }
 
-/*char	*ft_handle_char(va_list args, t_printf *t)
-{
-	char	*str;
-	int		c;
-
-	(void)t;
-	if (t->mod1 == 'l')
-		return (ft_handle_wchar(args, t));
-	c = va_arg(args, int);
-	if (c > 255)
-		return (NULL);
-	if (!(str = ft_strnew(1)))
-		return (NULL);
-	if (c == 0)
-		c = -1;
-	str[0] = c;
-	return (str);
-}*/
-
-char	*ft_handle_wchar(va_list args, t_printf *t)
+void		ft_handle_wchar(t_buff *b, t_printf *t, va_list args)
 {
 	wchar_t		tmp;
+	int			wlen;
 
 	if (t->flag == 'c' && t->mod1 != 'l')
 	{
 		tmp = va_arg(args, int);
 		if (tmp > 255)
-			return (NULL);
-		return (ft_strdup((const char *)&tmp));
+			;
+		ft_padding_b(b, t, 1);
+		bflush(b, ((const char*)&tmp), 1);
+		ft_padding_a(b, t, 1);
 	}
-	/*else if ((t->flag == 'c' && t->mod1 != 'l') || (t->flag == 'C'))
+	else if ((t->flag == 'c' && t->mod1 == 'l') || (t->flag == 'C'))
+	{
 		tmp = va_arg(args, wchar_t);
-	if (ft_wcharlen(tmp) == 0)
-		return (NULL);
-	
-	return (ft_getwchar(tmp));*/
-	return (NULL);
+		wlen = ft_wcharlen(tmp);
+		if (wlen == 0)
+		{
+			b->err = 1;
+			b->pos -= b->err_len;
+			return ;
+		}
+		ft_padding_b(b, t, wlen);
+		ft_getwchar(b, tmp, wlen);
+		ft_padding_a(b, t, wlen);
+	}
 }

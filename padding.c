@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/25 18:32:33 by misteir           #+#    #+#             */
-/*   Updated: 2018/01/03 13:30:51 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/12 14:53:27 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,107 +29,73 @@ void		ft_displaynode(t_printf *t)
 
 }
 
-void	addspaces(t_printf *t, char *buff, int nb, int start)
+void		add_spaces(t_buff *b, t_printf *t, int len)
 {
-	int		i;
+	int		n;
 
-	i = -1;
-	nb -= (t->plus) ? 1 : 0;
-	while (nb-- > 0)
-		ft_memcpy(buff + start + ++i, " ", 1);
-}
-
-void	addzeros(t_printf*t, char *buff, int nb, int start)
-{
-	int		i;
-
-	i = -1;
-	if (t->prec > 0 && t->nb > t->prec && t->minus == 0 && !t->neg)
+	if (ft_charinset(t->flag, "sScC"))
 	{
-		addspaces(t, buff, t->nb - t->prec, 0);
-		start += t->nb - t->prec;
-		start -= (t->plus && !t->neg) ? 1 : 0;
-		nb += (t->plus) ? 1 : 0;
+		n = t->nb - len;
+		while (n-- > 0)
+			bflush(b, " ", 1);
 	}
-	nb += (t->plus && t->minus) ? 1 : 0;
-	if (t->plus && !t->neg && nb--)
-		ft_memcpy(buff + start + ++i, "+", 1);
-	if (t->neg && nb--)
-		ft_memcpy(buff + start + ++i, "-", 1);
-	nb += ((t->nb - t->prec) == 1 && t->neg) ? 1 : 0;
-	nb += (t->prec > t->nb && t->neg) ? 1 : 0;
-	while (nb-- > 0)
-		ft_memcpy(buff + start + ++i, "0", 1);
 }
 
-void		copyarg(t_printf *t, t_buff *b, const char *arg, int len)
+void		ft_padding_b(t_buff *b, t_printf *t, int len)
 {
-	char	buff[len + 1];
-	int		slen;
-
-	slen = (t->flag == 'c') ? 1 : ft_strlen(arg);
-	ft_bzero(&buff, len + 1);
-	(t->prec > slen && ft_charinset(t->flag, "pibdDxXoOuU")) ? addzeros(t, buff, t->prec - slen, 0) : NULL;
-	(t->zero == 1 && t->nb - slen > (int)ft_strlen(buff)) ? addzeros(t, buff, t->nb - slen, ft_strlen(buff)) : NULL;
-	(t->nb > t->prec && t->minus == 0 && !buff[0]) ? addspaces(t, buff, t->nb - slen, 0) : NULL;
-	(t->space && !t->zero && ft_charinset(t->flag, "dD") && arg[0] != '-') ? addspaces(t, buff, 1, 0) : NULL;
-	(t->plus && !t->zero && !t->prec && ft_charinset(t->flag, "dD") && arg[0] != '-') ? ft_memcpy(buff, "+", 1) : NULL;
-	ft_memcpy(buff + ft_strlen(buff), arg, slen);
-	(t->nb > 0 && t->minus) ? addspaces(t, buff, t->nb - slen, ft_strlen(buff)) : NULL;
-	if (t->prec != -1)
-		bflush(b, buff, len);
+	if (t->nb > 0 && !t->minus)
+		add_spaces(b, t, len);
 }
 
-int			getarglen(t_printf *t, const char *arg)
+void		ft_padding_a(t_buff *b, t_printf *t, int len)
 {
-	int		len;
-
-	len = (t->flag == 'c') ? 1 : ft_strlen(arg);
-	len += (ft_charinset(t->flag, "xX") && t->hash == 1) ? 2 : 0; 
-	len += (ft_charinset(t->flag, "oO") && t->hash == 1) ? 1 : 0; 
-	len += (t->plus == 1 && arg[0] != '-') ? 1 : 0; 
-	len += (t->space == 1 && !t->plus && arg[0] != '-' && ft_charinset(t->flag, "d")) ? 1 : 0; 
-	len = (ft_charinset(t->flag, "sS") && t->prec < len && t->prec > 0) ? t->prec : len;
-	len = (ft_charinset(t->flag, "idDoOxX") && t->prec > len) ? t->prec : len;
-	len += (t->neg) ? 1 : 0; 
-	len += (t->nb > len) ? (t->nb - len) : 0;
-	return (len);
+	if (t->nb > 0 && t->minus)
+		add_spaces(b, t, len);
 }
 
-char		*getarg(t_printf *t, va_list args)
+void	getarg(t_buff *b, t_printf *t, va_list args)
 {
-	char	*str;
-
-	str = NULL;
+	if (ft_charinset(t->flag, "sS"))
+		ft_handle_wstr(b, t, args);
 	if (ft_charinset(t->flag, "cC"))
+		ft_handle_wchar(b, t, args);
+	//else
+	//	ft_handle_other
+	/*	char	*str;
+
+		str = NULL;
+		if (ft_charinset(t->flag, "cC"))
 		str = ft_handle_wchar(args, t);
-	else if (ft_charinset(t->flag, "sS"))
+		else if (ft_charinset(t->flag, "sS"))
 		str = ft_handle_wstr(args, t);
-	else if (ft_charinset(t->flag, "dD"))
+		else if (ft_charinset(t->flag, "dD"))
 		str = ft_handle_num(args, t);
-	else
-	{
+		else
+		{
 		str = ft_strdup(&(t->flag));
 		str[1] = '\0';
-	}
-	t->neg = (str[0] == '-' && ft_charinset(t->flag, "dD") && ((t->zero == 1 && t->nb > (int)ft_strlen(str)) || t->prec > 0)) ? 1 : 0;
-	(t->neg) ? ft_memcpy(str, str + 1, ft_strlen(str)) : NULL;
-	if (t->prec > 0 && t->prec < (int)ft_strlen(str) && ft_charinset(t->flag, "sS"))
+		}
+		t->neg = (str[0] == '-' && ft_charinset(t->flag, "dD") && ((t->zero == 1 && t->nb > (int)ft_strlen(str)) || t->prec > 0)) ? 1 : 0;
+		(t->neg) ? ft_memcpy(str, str + 1, ft_strlen(str)) : NULL;
+		if (t->prec > 0 && t->prec < (int)ft_strlen(str) && ft_charinset(t->flag, "sS"))
 		str[t->prec] = '\0';
-	return (str);
+		return (str);*/
 }
 
-void		ft_handler(t_buff *b, const char *fmt, va_list args, int idx)
+void		ft_handler(t_buff *b, t_printf *t, va_list args)
 {
-	t_printf	t;
-	char		*arg;
-	int			arglen;
-
 	(void)b;
-	ft_xtractor(&t, fmt, idx);
-	if (!(arg = getarg(&t, args)))
-		return ;
-	arglen = getarglen(&t, arg);
-	copyarg(&t, b, arg, arglen);
-	free(arg);
+	(void)t;
+	(void)args;
+
+	//char		*arg;
+	//int			arglen;
+
+	//ft_xtractor(&t, fmt, idx);
+	getarg(b, t, args)
+		/*	return ;
+			arglen = getarglen(&t, arg);
+			copyarg(&t, b, arg, arglen);
+			free(arg);*/
+		;
 }

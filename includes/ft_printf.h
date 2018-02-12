@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2017/12/31 11:17:26 by misteir          ###   ########.fr       */
+/*   Updated: 2018/02/12 17:41:59 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct			s_buff
 	char				buff[BUFF_SIZE + 1];
 	int					len;
 	int					pos;
+	int					err;
+	int					err_len;
 }						t_buff;
 
 typedef struct			s_printf
@@ -87,18 +89,21 @@ int						ft_printf(const char *restrict format, ...);
 */
 
 void					ft_readf(const char *fmt, t_buff *b, va_list args);
-void					ft_handler(t_buff *b, const char *fmt, va_list args,
-							int idx);
-void					ft_xtractor(t_printf *t, const char *fmt, int len);
+void					ft_handler(t_buff *b, t_printf *t, va_list args);
+int						ft_xtractor(t_printf *t, const char *fmt);
 
 /*
 ** ---------------------------- HANDLE FUNCTIONS ------------------------------
 */
 
+void					ft_getwchar(t_buff *b, wchar_t wc, int len);
 char					*ft_handle_num(va_list args, t_printf *t);
-char					*ft_handle_wchar(va_list args, t_printf *t);
-char					*ft_handle_wstr(va_list args, t_printf *t);
-char					*ft_getwchar(wchar_t wc);
+void					ft_handle_wchar(t_buff *b, t_printf *t, va_list args);
+void					ft_handle_wstr(t_buff *b, t_printf *t, va_list args);
+//char					*ft_getwchar(wchar_t wc);
+void					add_spaces(t_buff *b, t_printf *t, int len);
+void					ft_padding_b(t_buff *b, t_printf *t, int len);
+void					ft_padding_a(t_buff *b, t_printf *t, int len);
 
 /*
 ** ---------------------------- UTILS FUNCTIONS ------------------------------

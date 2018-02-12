@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 20:11:01 by fbabin            #+#    #+#             */
-/*   Updated: 2018/01/02 23:25:33 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/12 13:45:37 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,13 @@ static int		ft_xtract_float(const char *fmt)
 	return (a);
 }
 
-void		ft_xtractor(t_printf *t, const char *fmt, int len)
+int			ft_xtractor(t_printf *t, const char *fmt)
 {
 	int			i;
 
 	i = -1;
 	ft_bzero(t, sizeof(t_printf));
-	t->flag = fmt[ft_strspn(fmt, " #+-.0123456789hljz")];
-	while (fmt[++i] && i < len)
+	while (fmt[++i] && ft_charinset(fmt[i], " #+-.0123456789hljz"))
 	{
 		if (!(t->zero) && ft_isdigit(fmt[i]))
 			t->zero = (fmt[i] > '0') ? 2 : 1;
@@ -66,11 +65,13 @@ void		ft_xtractor(t_printf *t, const char *fmt, int len)
 			t->mod1 = fmt[i];
 		t->prec = ft_xtract_float(fmt);
 	}
+	t->flag = fmt[i];
 	if (t->prec == -1)
 		t->zero = 0;
 	if (t->mod1 != t->mod2)
 		t->mod2 = 0;
 	t->zero = (t->minus || t->prec > 0) ? 0 : t->zero;
 	t->nb = ft_xtract_number(fmt);
-	t->nb = (t->prec > t->nb) ? 0 : t->nb;
+	//t->nb = (t->prec > t->nb) ? 0 : t->nb;
+	return (i);
 }
