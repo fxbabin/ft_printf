@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/13 21:50:20 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/14 21:41:05 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct			s_printf
 	char				plus;
 	char				minus;
 	char				hash;
+	char				wild;
 	char				space;
 	char				mod1;
 	char				mod2;
@@ -90,7 +91,7 @@ int						ft_printf(const char *restrict format, ...);
 
 void					ft_readf(const char *fmt, t_buff *b, va_list args);
 void					ft_handler(t_buff *b, t_printf *t, va_list args);
-int						ft_xtractor(t_printf *t, const char *fmt);
+int						ft_xtractor(t_printf *t, const char *fmt, va_list args);
 
 /*
 ** ---------------------------- HANDLE FUNCTIONS ------------------------------

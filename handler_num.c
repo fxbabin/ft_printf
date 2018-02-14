@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 10:33:11 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/14 01:23:18 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/14 18:24:29 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ void	ft_getbase(char *base, char flag)
 	ft_bzero(base, 17);
 	if (flag == 'o' || flag == 'O')
 		ft_memcpy(base, "01234567", 8);
-	else if (flag == 'x')
+	else if (flag == 'x' || flag == 'p')
 		ft_memcpy(base, "0123456789abcdef", 16);
 	else if (flag == 'X')
 		ft_memcpy(base, "0123456789ABCDEF", 16);
+	else if (flag == 'b')
+		ft_memcpy(base, "01", 2);
 	else
 		ft_memcpy(base, "0123456789", 10);
 }
@@ -35,7 +37,11 @@ long long			proper_cast(t_printf *t, va_list args)
 	else if (!(t->mod2) && (t->mod1 == 'h'))
 		return ((long long)((short)va_arg(args, int)));
 	else if (t->mod2 == 'h')
+	{
+		if (t->flag == 'D')
+			return ((long long)((unsigned short)va_arg(args, int)));
 		return ((long long)((char)va_arg(args, int)));
+	}
 	else if (!(t->mod2) && (t->mod1 == 'l'))
 		return ((long long)va_arg(args, long));
 	else if (t->mod2 == 'l')
@@ -52,9 +58,9 @@ unsigned long long	proper_ucast(t_printf *t, va_list args)
 	else if (t->mod1 == 'z')
 		return ((unsigned long long)va_arg(args, size_t));
 	else if (!(t->mod2) && (t->mod1 == 'h'))
-		n = (unsigned int)(va_arg(args, unsigned int));
-	else if (t->mod2 == 'h')
 		n = (unsigned int)((unsigned short)va_arg(args, unsigned int));
+	else if (t->mod2 == 'h')
+		n = (unsigned int)((unsigned char)va_arg(args, unsigned int));
 	else if (!(t->mod2) && (t->mod1 == 'l'))
 		return ((unsigned long long)va_arg(args, unsigned long));
 	else if (t->mod2 == 'l')
@@ -106,10 +112,12 @@ void	ft_handle_unum(t_buff *b, t_printf *t, va_list args)
 	char		*str;
 	int			len;
 
-	//t->hash = (t->flag == 'p') ? 1 : t->hash;
-	//t->flag = (t->flag == 'p') ? 'X' : t->flag;
+	t->hash = (t->flag == 'p') ? 1 : t->hash;
+	//t->flag = (t->flag == 'p') ? 'x' : t->flag;
 	ft_getbase(base, t->flag);
 	t->mod1 = (t->flag < 96 && t->flag != 'X' ) ? 'l' : t->mod1;
+	t->mod2 = (t->flag < 96 && t->flag != 'X' ) ? 0 : t->mod2;
+	t->mod1 = (t->flag == 'p' ) ? 'l' : t->mod1;
 
 
 	str = ft_llutoa_base(proper_ucast(t, args), base);
@@ -129,8 +137,11 @@ void	ft_handle_unum(t_buff *b, t_printf *t, va_list args)
 	  str = ft_llutoa_base(va_arg(args, size_t), base);
 	  */
 	len = ft_strlen(str);
-	len = (ft_charinset(t->flag, "uUxX") && t->prec == -1 && ft_atoi(str) == 0 && str[0] == '0') ? 0 : len;
-	t->hash = (ft_atollu(str) == 0 && str[0] == '0') ? 0 : t->hash;
+	//printf("%s\n", str);
+	//t->prec = (t->hash && t->flag == 'o' && ft_atoi(str) == 0 && str[0] == '0') ? -1 : t->prec;
+	len = (t->prec == -1 && ft_atoi(str) == 0 && str[0] == '0') ? 0 : len;
+	len = (t->hash && (t->flag == 'o' || t->flag == 'O') && ft_atoi(str) == 0 && str[0] == '0') ? 0 : len;
+	t->hash = (!ft_charinset(t->flag, "poO") && ft_atollu(str) == 0 && str[0] == '0') ? 0 : t->hash;
 	//len = (t->prec == -1 && ft_atoi(str) == 0) ? 0 : len;
 	ft_padding_b(b, t, len);
 	//if (t->prec != -1)

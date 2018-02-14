@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:43:07 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/13 17:29:02 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/14 21:23:42 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_readf(const char *fmt, t_buff *b, va_list args)
 			bflush(b, fmt, i);
 			b->err_len = i;
 			fmt += i + 1;
-			idx = ft_xtractor(&t, fmt);
+			idx = ft_xtractor(&t, fmt, args);
 			if (!fmt[idx])
 				break ;
 			ft_handler(b, &t, args);
