@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/12 17:41:59 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/13 21:50:20 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ int						ft_xtractor(t_printf *t, const char *fmt);
 */
 
 void					ft_getwchar(t_buff *b, wchar_t wc, int len);
-char					*ft_handle_num(va_list args, t_printf *t);
+void					ft_handle_num(t_buff *b, t_printf *t, va_list args);
+void					ft_handle_unum(t_buff *b, t_printf *t, va_list args);
 void					ft_handle_wchar(t_buff *b, t_printf *t, va_list args);
 void					ft_handle_wstr(t_buff *b, t_printf *t, va_list args);
 //char					*ft_getwchar(wchar_t wc);

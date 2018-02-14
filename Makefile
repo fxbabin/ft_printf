@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 17:49:24 by fbabin            #+#    #+#              #
-#    Updated: 2017/12/31 11:18:06 by misteir          ###   ########.fr        #
+#    Updated: 2018/02/14 00:46:01 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ _LSRCS			=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 					ft_strreplace.c ft_split.c ft_join.c ft_quicksort.c \
 					ft_strquicksort.c ft_mergesort.c ft_strmergesort.c \
 					ft_char2dump.c ft_int2dump.c ft_strspn.c ft_strcspn.c \
-					ft_strmjoin.c \
+					ft_strmjoin.c ft_atollu.c \
 
 SRCS_DIR		=	.
 LSRCS_DIR		=	libft
