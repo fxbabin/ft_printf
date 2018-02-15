@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/14 21:41:05 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/15 16:59:11 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct			s_printf
 	char				plus;
 	char				minus;
 	char				hash;
-	char				wild;
 	char				space;
 	char				mod1;
 	char				mod2;

@@ -6,12 +6,28 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:43:07 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/14 21:23:42 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/15 17:03:04 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
+
+void            ft_displaynode(t_printf *t)
+{
+	printf("prec -> %d\n", t->prec);
+	printf("nb -> %d\n", t->nb);
+	printf("flag -> %c\n", t->flag);
+	printf("zero -> %d\n", t->zero);
+	printf("plus -> %d\n", t->plus);
+	printf("minus -> %d\n", t->minus);
+	printf("hash -> %d\n", t->hash);
+	printf("space -> %d\n", t->space);
+	printf("mod1 -> %c\n", t->mod1);
+	printf("mod2 -> %c\n", t->mod2);
+	printf("neg -> %d\n", t->neg);
+
+}
 
 void	ft_buff_init(t_buff *b)
 {

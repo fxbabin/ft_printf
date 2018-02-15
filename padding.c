@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/25 18:32:33 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/14 22:03:51 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/15 17:00:12 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,47 @@ void	ft_handle_float(t_buff *b, t_printf *t, va_list args)
 	//if (t->prec == -1)
 	//	return ;
 	if (t->prec == -1)
-		t->prec = 0;
-	if (t->prec == 0)
+	{
+		if (!(str = ft_strnew(0)))
+			return ;
+	}
+	else if (t->prec == 0)
 		str = ft_ftoa(nb, 6);
 	else
 		str = ft_ftoa(nb, t->prec);
 	len = ft_strlen(str);
+	len = (t->prec == -1) ? 0 : len;
 	ft_padding_b(b, t, len);
 	bflush(b, str, len);
 	ft_padding_a(b, t, len);
 	free (str);
+}
+
+/*void	ft_handle_colors(t_buff *b, t_printf *t, va_list args)
+{
+	int		nb;
+
+	nb = 
+}*/
+
+void	ft_handle_n(t_buff *b, t_printf *t, va_list args)
+{
+	int		*tmp;
+
+	if (!(tmp = va_arg(args, void*)))
+		return ;
+	if (t->mod1 == 'j')
+		*((intmax_t*)tmp) = ((intmax_t)b->len);
+	else if (t->mod1 == 'z')
+		*((size_t*)tmp) = ((size_t)b->len);
+	else if (!(t->mod2) && (t->mod1 == 'h'))
+		*((short*)tmp) = ((short)b->len);
+	else if (t->mod2 == 'h')
+		*((signed char*)tmp) = ((signed char)b->len);
+	else if (!(t->mod2) && (t->mod1 == 'l'))
+		*((long*)tmp) = ((long)b->len);
+	else if (t->mod2 == 'l')
+		*((long long*)tmp) = ((long long)b->len);
 }
 
 void	ft_handler(t_buff *b, t_printf *t, va_list args)
@@ -126,6 +157,8 @@ void	ft_handler(t_buff *b, t_printf *t, va_list args)
 		ft_handle_unum(b, t, args);
 	else if (ft_charinset(t->flag, "fF"))
 		ft_handle_float(b, t, args);
+	else if (ft_charinset(t->flag, "n"))
+		ft_handle_n(b, t, args);
 	else
 		ft_handle_other(b, t, t->flag);
 }
