@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 17:49:24 by fbabin            #+#    #+#              #
-#    Updated: 2018/02/15 23:17:33 by fbabin           ###   ########.fr        #
+#    Updated: 2018/02/15 23:56:16 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ _LSRCS			=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 					ft_char2dump.c ft_int2dump.c ft_strspn.c ft_strcspn.c \
 					ft_strmjoin.c ft_atollu.c \
 
-SRCS_DIR		=	.
+SRCS_DIR		=	srcs
 LSRCS_DIR		=	libft
 SRCS			=	$(addprefix $(SRCS_DIR)/, $(_SRCS))
 LSRCS			=	$(addprefix $(LSRCS_DIR)/, $(_LSRCS))
