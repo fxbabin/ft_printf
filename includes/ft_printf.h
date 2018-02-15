@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/15 23:16:39 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/15 23:49:35 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,6 @@
 */
 
 # define BUFF_SIZE 128
-
-# define MIN_INT -2147483648
-# define MAX_INT 2147483647
-# define MIN_UINT -4294967295
-# define MAX_UINT 4294967295
-# define MIN_LONG -9223372036854775807
-# define MAX_LONG 9223372036854775807
 
 # define RED "\x1b[31m"
 # define GREEN "\x1b[32m"
@@ -109,8 +102,6 @@ void					ft_handle_n(t_buff *b, t_printf *t, va_list args);
 void					ft_handle_colors(t_buff *b, t_printf *t, va_list args);
 void					ft_handle_other(t_buff *b, t_printf *t, char flag);
 void					ft_handle_float(t_buff *b, t_printf *t, va_list args);
-
-//char					*ft_getwchar(wchar_t wc);
 void					add_spaces(t_buff *b, t_printf *t, int len);
 void					ft_padding_b(t_buff *b, t_printf *t, int len);
 void					ft_padding_a(t_buff *b, t_printf *t, int len);
