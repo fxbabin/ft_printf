@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/16 00:24:15 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/16 00:39:21 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,20 @@
 ** --------------------------------- DEFINES ---------------------------------
 */
 
-# define BUFF_SIZE 128
-
-# define RED "\x1b[31m"
-# define GREEN "\x1b[32m"
-# define YELLOW "\x1b[33m"
-# define BLUE "\x1b[34m"
-# define MAGENTA "\x1b[35m"
-# define CYAN "\x1b[36m"
-# define EOC "\x1b[0m"
+# define BUFF_SIZE	128
+# define RED		0xE71010
+# define LRED		0xF3664D
+# define GREEN		0x219A25
+# define LGREEN		0x55DA59
+# define YELLOW		0xFFFB00
+# define LYELLOW	0xFBF978
+# define BLUE		0x224DFC
+# define LBLUE		0x8099FE
+# define MAGENTA	0xFF54F7
+# define LMAGENTA	0xFFB6FC
+# define CYAN		0x2EFCFF
+# define LCYAN		0x97FEFF
+# define EOC		0xFFFFFF
 
 /*
 ** ------------------------------- STRUCTURES ----------------------------------
