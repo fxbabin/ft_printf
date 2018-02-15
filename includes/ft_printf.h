@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/15 23:49:35 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/16 00:24:15 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void					ft_padding_a(t_buff *b, t_printf *t, int len);
 ** ---------------------------- UTILS FUNCTIONS ------------------------------
 */
 
-void					ft_buff_init(t_buff *b, int fd);
 void					bflush(t_buff *b, const char *str, int n);
 int						ft_wcharlen(wchar_t wc);
 

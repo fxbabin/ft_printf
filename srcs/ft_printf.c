@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:43:07 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/15 23:21:33 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/16 00:21:59 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int			ft_vfprintf(int fd, const char *format, va_list args)
 
 	if (!format)
 		return (-1);
-	ft_buff_init(&b, fd);
+	ft_memset(&b, 0, sizeof(t_buff));
+	b.fd = fd;
 	ft_readf(format, &b, args);
 	write(b.fd, &(b.buff), b.pos);
 	return ((b.err == 1) ? -1 : b.len);
