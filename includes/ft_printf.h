@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/15 16:59:11 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/15 23:16:39 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct			s_buff
 	int					len;
 	int					pos;
 	int					err;
+	int					fd;
 	int					err_len;
 }						t_buff;
 
@@ -83,6 +84,9 @@ typedef struct			s_printf
 */
 
 int						ft_printf(const char *restrict format, ...);
+int						ft_fprintf(int fd, const char *restrict format, ...);
+int						ft_vfprintf(int fd, const char *restrict format,
+							va_list args);
 
 /*
 ** ---------------------------- GENERAL FUNCTIONS ------------------------------
@@ -101,6 +105,11 @@ void					ft_handle_num(t_buff *b, t_printf *t, va_list args);
 void					ft_handle_unum(t_buff *b, t_printf *t, va_list args);
 void					ft_handle_wchar(t_buff *b, t_printf *t, va_list args);
 void					ft_handle_wstr(t_buff *b, t_printf *t, va_list args);
+void					ft_handle_n(t_buff *b, t_printf *t, va_list args);
+void					ft_handle_colors(t_buff *b, t_printf *t, va_list args);
+void					ft_handle_other(t_buff *b, t_printf *t, char flag);
+void					ft_handle_float(t_buff *b, t_printf *t, va_list args);
+
 //char					*ft_getwchar(wchar_t wc);
 void					add_spaces(t_buff *b, t_printf *t, int len);
 void					ft_padding_b(t_buff *b, t_printf *t, int len);
@@ -110,6 +119,7 @@ void					ft_padding_a(t_buff *b, t_printf *t, int len);
 ** ---------------------------- UTILS FUNCTIONS ------------------------------
 */
 
+void					ft_buff_init(t_buff *b, int fd);
 void					bflush(t_buff *b, const char *str, int n);
 int						ft_wcharlen(wchar_t wc);
 

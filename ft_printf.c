@@ -6,39 +6,13 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:43:07 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/15 17:03:04 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/15 23:21:33 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-void            ft_displaynode(t_printf *t)
-{
-	printf("prec -> %d\n", t->prec);
-	printf("nb -> %d\n", t->nb);
-	printf("flag -> %c\n", t->flag);
-	printf("zero -> %d\n", t->zero);
-	printf("plus -> %d\n", t->plus);
-	printf("minus -> %d\n", t->minus);
-	printf("hash -> %d\n", t->hash);
-	printf("space -> %d\n", t->space);
-	printf("mod1 -> %c\n", t->mod1);
-	printf("mod2 -> %c\n", t->mod2);
-	printf("neg -> %d\n", t->neg);
-
-}
-
-void	ft_buff_init(t_buff *b)
-{
-	ft_bzero(b->buff, BUFF_SIZE + 1);
-	b->len = 0;
-	b->pos = 0;
-	b->err = 0;
-	b->err_len = 0;
-}
-
-void	bflush(t_buff *b, const char *str, int n)
+void		bflush(t_buff *b, const char *str, int n)
 {
 	int		i;
 
@@ -49,7 +23,7 @@ void	bflush(t_buff *b, const char *str, int n)
 	{
 		i = (BUFF_SIZE - b->pos);
 		ft_memcpy((b->buff) + b->pos, str, i);
-		write(1, &(b->buff), b->pos + i);
+		write(b->fd, &(b->buff), b->pos + i);
 		ft_bzero(b->buff, BUFF_SIZE + 1);
 		b->pos = 0;
 		b->len += i;
@@ -61,8 +35,7 @@ void	bflush(t_buff *b, const char *str, int n)
 	b->pos += n;
 }
 
-
-void	ft_readf(const char *fmt, t_buff *b, va_list args)
+void		ft_readf(const char *fmt, t_buff *b, va_list args)
 {
 	t_printf	t;
 	int			idx;
@@ -90,15 +63,36 @@ void	ft_readf(const char *fmt, t_buff *b, va_list args)
 	bflush(b, fmt, i);
 }
 
-int		ft_printf(const char *format, ...)
+int			ft_vfprintf(int fd, const char *format, va_list args)
 {
 	t_buff		b;
-	va_list		args;
 
-	ft_buff_init(&b);
-	va_start(args, format);
+	if (!format)
+		return (-1);
+	ft_buff_init(&b, fd);
 	ft_readf(format, &b, args);
-	va_end(args);
-	write(1, &(b.buff), b.pos);
+	write(b.fd, &(b.buff), b.pos);
 	return ((b.err == 1) ? -1 : b.len);
+}
+
+int			ft_fprintf(int fd, const char *format, ...)
+{
+	va_list		args;
+	int			ret;
+
+	va_start(args, format);
+	ret = ft_vfprintf(fd, format, args);
+	va_end(args);
+	return (ret);
+}
+
+int			ft_printf(const char *format, ...)
+{
+	va_list		args;
+	int			ret;
+
+	va_start(args, format);
+	ret = ft_vfprintf(1, format, args);
+	va_end(args);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/25 18:32:33 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/15 17:00:12 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/15 23:20:30 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		ft_padding_a(t_buff *b, t_printf *t, int len)
 		add_spaces(b, t, len);
 }
 
-void	ft_handle_other(t_buff *b, t_printf *t, char flag)
+/*void	ft_handle_other(t_buff *b, t_printf *t, char flag)
 {
 	ft_padding_b(b, t, 1);
 	bflush(b, &flag, 1);
@@ -116,7 +116,7 @@ void	ft_handle_float(t_buff *b, t_printf *t, va_list args)
 	bflush(b, str, len);
 	ft_padding_a(b, t, len);
 	free (str);
-}
+}*/
 
 /*void	ft_handle_colors(t_buff *b, t_printf *t, va_list args)
 {
@@ -125,7 +125,7 @@ void	ft_handle_float(t_buff *b, t_printf *t, va_list args)
 	nb = 
 }*/
 
-void	ft_handle_n(t_buff *b, t_printf *t, va_list args)
+/*void	ft_handle_n(t_buff *b, t_printf *t, va_list args)
 {
 	int		*tmp;
 
@@ -143,7 +143,7 @@ void	ft_handle_n(t_buff *b, t_printf *t, va_list args)
 		*((long*)tmp) = ((long)b->len);
 	else if (t->mod2 == 'l')
 		*((long long*)tmp) = ((long long)b->len);
-}
+}*/
 
 void	ft_handler(t_buff *b, t_printf *t, va_list args)
 {
@@ -157,6 +157,8 @@ void	ft_handler(t_buff *b, t_printf *t, va_list args)
 		ft_handle_unum(b, t, args);
 	else if (ft_charinset(t->flag, "fF"))
 		ft_handle_float(b, t, args);
+	else if (ft_charinset(t->flag, "k"))
+		ft_handle_colors(b, t, args);
 	else if (ft_charinset(t->flag, "n"))
 		ft_handle_n(b, t, args);
 	else
