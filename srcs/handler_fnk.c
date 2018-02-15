@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 21:21:31 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/15 22:23:40 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/16 00:45:45 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		ft_handle_colors(t_buff *b, t_printf *t, va_list args)
 	(t->hash) ? bflush(b, "\e[3m", 4) : 0;
 	(t->plus) ? bflush(b, "\e[1m", 4) : 0;
 	(t->minus) ? bflush(b, "\e[4m", 4) : 0;
-	if (nb == -1)
+	if (nb == RESET)
 		bflush(b, "\e[0;38;255;255;255m", 19);
 	else
 	{
