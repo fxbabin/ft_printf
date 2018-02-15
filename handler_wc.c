@@ -6,10 +6,9 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 16:10:52 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/12 16:55:08 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/15 23:27:22 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "ft_printf.h"
 
@@ -61,16 +60,15 @@ void	ft_getwchar(t_buff *b, wchar_t wc, int len)
 	bflush(b, (const char *)&tmp, len);
 }
 
-void		ft_handle_wchar(t_buff *b, t_printf *t, va_list args)
+void	ft_handle_wchar(t_buff *b, t_printf *t, va_list args)
 {
 	wchar_t		tmp;
 	int			wlen;
 
 	if (t->flag == 'c' && t->mod1 != 'l')
 	{
-		tmp = va_arg(args, int);
-		if (tmp > 255)
-			;
+		if ((tmp = va_arg(args, int)) > 255)
+			return ;
 		ft_padding_b(b, t, 1);
 		bflush(b, ((const char*)&tmp), 1);
 		ft_padding_a(b, t, 1);

@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 00:30:34 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/13 00:21:04 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/15 23:28:26 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int		ft_wstrlen(wchar_t *wstr, int prec)
 	return (nc);
 }
 
-void		ft_handle_nullstr(t_buff *b, t_printf *t)
+void			ft_handle_nullstr(t_buff *b, t_printf *t)
 {
 	int		len;
 
@@ -45,7 +45,7 @@ void		ft_handle_nullstr(t_buff *b, t_printf *t)
 	ft_padding_a(b, t, len);
 }
 
-int			get_wlen(int prec, wchar_t *tmp, int t)
+int				get_wlen(int prec, wchar_t *tmp, int t)
 {
 	int		len;
 	int		i;
@@ -57,7 +57,7 @@ int			get_wlen(int prec, wchar_t *tmp, int t)
 	return (len);
 }
 
-void		ft_handle_wstr_2(t_buff *b, t_printf *t, va_list args)
+void			ft_handle_wstr_2(t_buff *b, t_printf *t, va_list args)
 {
 	int			i;
 	int			len;
@@ -85,7 +85,7 @@ void		ft_handle_wstr_2(t_buff *b, t_printf *t, va_list args)
 	ft_padding_a(b, t, slen);
 }
 
-void		ft_handle_wstr(t_buff *b, t_printf *t, va_list args)
+void			ft_handle_wstr(t_buff *b, t_printf *t, va_list args)
 {
 	int			len;
 	char		*tm;
@@ -98,7 +98,8 @@ void		ft_handle_wstr(t_buff *b, t_printf *t, va_list args)
 			ft_handle_nullstr(b, t);
 			return ;
 		}
-		len = (t->prec > 0 && t->prec < (int)ft_strlen(tm)) ? t->prec : ft_strlen(tm);
+		len = (t->prec > 0 && t->prec < (int)ft_strlen(tm)) ?
+			t->prec : ft_strlen(tm);
 		len = (t->prec == -1) ? 0 : len;
 		ft_padding_b(b, t, len);
 		if (t->prec != -1)
