@@ -43,8 +43,6 @@ void		ft_readf(const char *fmt, t_buff *b, va_list args)
 
 	i = -1;
 	idx = 0;
-	(void)args;
-	(void)t;
 	while (fmt[++i])
 	{
 		if (fmt[i] == '%' && b->err == 0)
