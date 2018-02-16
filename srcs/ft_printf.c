@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:43:07 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/16 00:21:59 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/16 11:45:04 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			ft_vfprintf(int fd, const char *format, va_list args)
 	return ((b.err == 1) ? -1 : b.len);
 }
 
-int			ft_fprintf(int fd, const char *format, ...)
+int			ft_dprintf(int fd, const char *format, ...)
 {
 	va_list		args;
 	int			ret;

@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/16 00:42:38 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/16 11:51:23 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 ** --------------------------------- DEFINES ---------------------------------
 */
 
-# define BUFF_SIZE	128
+# define BUFF_SIZE	256
 # define RED		0xE71010
 # define LRED		0xF3664D
 # define GREEN		0x219A25
@@ -83,7 +83,7 @@ typedef struct			s_printf
 */
 
 int						ft_printf(const char *restrict format, ...);
-int						ft_fprintf(int fd, const char *restrict format, ...);
+int						ft_dprintf(int fd, const char *restrict format, ...);
 int						ft_vfprintf(int fd, const char *restrict format,
 							va_list args);
 
