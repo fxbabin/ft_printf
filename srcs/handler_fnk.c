@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 21:21:31 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/16 00:45:45 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/16 12:04:13 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		ft_handle_colors(t_buff *b, t_printf *t, va_list args)
 
 void		ft_handle_n(t_buff *b, t_printf *t, va_list args)
 {
-	int		*tmp;
+	void	*tmp;
 
 	if (!(tmp = va_arg(args, void*)))
 		return ;
@@ -91,5 +91,7 @@ void		ft_handle_n(t_buff *b, t_printf *t, va_list args)
 	else if (!(t->mod2) && (t->mod1 == 'l'))
 		*((long*)tmp) = ((long)b->len);
 	else if (t->mod2 == 'l')
-		*((long long*)tmp) = ((long long)b->len);
+		*((long long*)tmp) = ((long long)b->len)i;
+	else
+		*((int*)tmp) = ((int)b->len);
 }
