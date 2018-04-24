@@ -15,7 +15,7 @@ The objective of this project is to recode the printf function. My implementatio
 * c : ascii character
 * C : unicode character
 ### Flags
-* # : add '0x' for hexadecimal or '0' for octal
+* \# : add '0x' for hexadecimal or '0' for octal
 * 0 : complete the indicated width with zeros
 * - : apply width after the argument 
 * + : add '+' sign for positive numbers
