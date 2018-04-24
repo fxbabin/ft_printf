@@ -17,15 +17,15 @@ The objective of this project is to recode the printf function. My implementatio
 ### Flags
 * \# : add '0x' for hexadecimal or '0' for octal
 * 0 : complete the indicated width with zeros
-* - : apply width after the argument 
-* + : add '+' sign for positive numbers
+* \- : apply width after the argument 
+* \+ : add '+' sign for positive numbers
 * ' ' : add a space before the argument
-* hh : cast the argument in 
-* h : cast the argument in  
-* l : cast the argument in 
-* ll : cast the argument in 
+* hh : cast the argument in char / unsigned char
+* h : cast the argument in short / unsigned short
+* l : cast the argument in long / unsigned long
+* ll : cast the argument in long long / unsigned long long
 * j : cast the argument in intmax_t
-* z : cast the argument in 
+* z : cast the argument in size_t
 ## Bonuses
 * ft_dprintf
 * ft_sprintf
