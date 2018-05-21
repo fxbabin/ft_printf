@@ -13,7 +13,7 @@
 NAME			=	libftprintf.a
 
 CC				=	gcc
-CFLAGS			=	
+CFLAGS			=	-Wall -Werror -Wextra
 
 _SRCS			=	ft_printf.c ft_sprintf.c padding.c xtract.c handler_wc.c \
 					handler_ws.c handler_num.c handler_fnk.c \
