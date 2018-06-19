@@ -1,6 +1,6 @@
 # ft_printf
 
-The objective of this project is to recode the printf function. My implementation is 70% of the printf speed.
+The objective of this project is to recode the printf function. My implementation is 106% of the printf speed.
 
 ## Mandatory Part
 
