@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 21:27:19 by fbabin            #+#    #+#             */
-/*   Updated: 2017/11/08 21:27:34 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/06/19 16:30:47 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,27 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	char	*tmp;
+	size_t	i;
 
-	tmp = (char*)s;
-	while (n--)
-		*(tmp++) = '\0';
+	i = 0;
+	while ((int)(i * 8) <= (int)(n - 8))
+	{
+		*((int64_t *)s + i) = 0;
+		i++;
+	}
+	i *= 2;
+	if ((int)(i * 4) <= (int)(n - 4))
+	{
+		*((int *)s + i) = 0;
+		i++;
+	}
+	i *= 2;
+	if ((int)(i * 2) <= (int)(n - 2))
+	{
+		*((short *)s + i) = 0;
+		i++;
+	}
+	i *= 2;
+	if (i < n)
+		*((char *)s + i) = 0;
 }

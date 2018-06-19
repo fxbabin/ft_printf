@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2018/04/18 00:13:33 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/06/19 16:20:53 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,8 @@ void					ft_padding_a(t_buff *b, t_printf *t, int len);
 
 void					bflush(t_buff *b, const char *str, int n);
 int						ft_wcharlen(wchar_t wc);
+void					ft_lltoa_static(char *str, long long nb);
+void					ft_llutoa_base_static(char *str,
+								unsigned long long nb, const char *base);
 
 #endif

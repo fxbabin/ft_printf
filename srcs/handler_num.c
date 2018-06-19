@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 10:33:11 by misteir           #+#    #+#             */
-/*   Updated: 2018/04/17 18:36:41 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/06/19 16:41:04 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,24 +71,24 @@ unsigned long long	proper_ucast(t_printf *t, va_list args)
 
 void				ft_handle_num(t_buff *b, t_printf *t, va_list args)
 {
-	char		*str;
+	char		str[21];
 	int			len;
 
 	t->mod1 = (t->flag < 96) ? 'l' : t->mod1;
-	str = ft_lltoa(proper_cast(t, args));
+	ft_bzero((char*)&str, 21);
+	ft_lltoa_static((char*)&str, proper_cast(t, args));
 	t->neg = (str[0] == '-') ? 1 : 0;
 	len = ft_strlen(str) - t->neg;
 	len = (t->prec == -1 && ft_atoi(str) == 0) ? 0 : len;
 	ft_padding_b(b, t, len);
 	bflush(b, (t->neg) ? str + 1 : str, len);
 	ft_padding_a(b, t, len);
-	free(str);
 }
 
 void				ft_handle_unum(t_buff *b, t_printf *t, va_list args)
 {
 	char		base[17];
-	char		*str;
+	char		str[23];
 	int			len;
 
 	t->hash = (t->flag == 'p') ? 1 : t->hash;
@@ -96,7 +96,8 @@ void				ft_handle_unum(t_buff *b, t_printf *t, va_list args)
 	t->mod1 = (t->flag < 96 && t->flag != 'X') ? 'l' : t->mod1;
 	t->mod2 = (t->flag < 96 && t->flag != 'X') ? 0 : t->mod2;
 	t->mod1 = (t->flag == 'p') ? 'l' : t->mod1;
-	str = ft_llutoa_base(proper_ucast(t, args), base);
+	ft_bzero((char*)&str, 23);
+	ft_llutoa_base_static((char*)&str, proper_ucast(t, args), base);
 	len = ft_strlen(str);
 	len = (t->prec == -1 && ft_atoi(str) == 0 && str[0] == '0') ? 0 : len;
 	len = (t->hash && (t->flag == 'o' || t->flag == 'O') &&
@@ -106,5 +107,4 @@ void				ft_handle_unum(t_buff *b, t_printf *t, va_list args)
 	ft_padding_b(b, t, len);
 	bflush(b, str, len);
 	ft_padding_a(b, t, len);
-	free(str);
 }
