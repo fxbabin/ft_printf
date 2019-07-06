@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 10:33:11 by misteir           #+#    #+#             */
-/*   Updated: 2018/06/19 16:41:04 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/07/06 14:14:25 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void				ft_getbase(char *base, char flag)
 {
-	ft_bzero(base, 17);
+	ft_bzerop(base, 17);
 	if (flag == 'o' || flag == 'O')
-		ft_memcpy(base, "01234567", 8);
+		ft_memcpyp(base, "01234567", 8);
 	else if (flag == 'x' || flag == 'p')
-		ft_memcpy(base, "0123456789abcdef", 16);
+		ft_memcpyp(base, "0123456789abcdef", 16);
 	else if (flag == 'X')
-		ft_memcpy(base, "0123456789ABCDEF", 16);
+		ft_memcpyp(base, "0123456789ABCDEF", 16);
 	else if (flag == 'b')
-		ft_memcpy(base, "01", 2);
+		ft_memcpyp(base, "01", 2);
 	else
-		ft_memcpy(base, "0123456789", 10);
+		ft_memcpyp(base, "0123456789", 10);
 }
 
 long long			proper_cast(t_printf *t, va_list args)
@@ -75,11 +75,11 @@ void				ft_handle_num(t_buff *b, t_printf *t, va_list args)
 	int			len;
 
 	t->mod1 = (t->flag < 96) ? 'l' : t->mod1;
-	ft_bzero((char*)&str, 21);
+	ft_bzerop((char*)&str, 21);
 	ft_lltoa_static((char*)&str, proper_cast(t, args));
 	t->neg = (str[0] == '-') ? 1 : 0;
-	len = ft_strlen(str) - t->neg;
-	len = (t->prec == -1 && ft_atoi(str) == 0) ? 0 : len;
+	len = ft_strlenp(str) - t->neg;
+	len = (t->prec == -1 && ft_atoip(str) == 0) ? 0 : len;
 	ft_padding_b(b, t, len);
 	bflush(b, (t->neg) ? str + 1 : str, len);
 	ft_padding_a(b, t, len);
@@ -96,14 +96,14 @@ void				ft_handle_unum(t_buff *b, t_printf *t, va_list args)
 	t->mod1 = (t->flag < 96 && t->flag != 'X') ? 'l' : t->mod1;
 	t->mod2 = (t->flag < 96 && t->flag != 'X') ? 0 : t->mod2;
 	t->mod1 = (t->flag == 'p') ? 'l' : t->mod1;
-	ft_bzero((char*)&str, 23);
+	ft_bzerop((char*)&str, 23);
 	ft_llutoa_base_static((char*)&str, proper_ucast(t, args), base);
-	len = ft_strlen(str);
-	len = (t->prec == -1 && ft_atoi(str) == 0 && str[0] == '0') ? 0 : len;
+	len = ft_strlenp(str);
+	len = (t->prec == -1 && ft_atoip(str) == 0 && str[0] == '0') ? 0 : len;
 	len = (t->hash && (t->flag == 'o' || t->flag == 'O') &&
-			ft_atoi(str) == 0 && str[0] == '0') ? 0 : len;
-	t->hash = (!ft_charinset(t->flag, "poO") &&
-			ft_atollu(str) == 0 && str[0] == '0') ? 0 : t->hash;
+			ft_atoip(str) == 0 && str[0] == '0') ? 0 : len;
+	t->hash = (!ft_charinsetp(t->flag, "poO") &&
+			ft_atollup(str) == 0 && str[0] == '0') ? 0 : t->hash;
 	ft_padding_b(b, t, len);
 	bflush(b, str, len);
 	ft_padding_a(b, t, len);

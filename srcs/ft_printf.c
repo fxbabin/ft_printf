@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:43:07 by misteir           #+#    #+#             */
-/*   Updated: 2018/04/18 00:01:35 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/07/06 14:06:58 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,15 @@ void		bflush(t_buff *b, const char *str, int n)
 	while ((b->pos + n) > BUFF_SIZE)
 	{
 		i = (BUFF_SIZE - b->pos);
-		ft_memcpy((b->buff) + b->pos, str, i);
-		if (b->sprintf)
-			b->str = ft_strjoinclr(b->str, b->buff, 1);
-		else
-			write(b->fd, &(b->buff), b->pos + i);
-		ft_bzero(b->buff, BUFF_SIZE + 1);
+		ft_memcpyp((b->buff) + b->pos, str, i);
+		write(b->fd, &(b->buff), b->pos + i);
+		ft_bzerop(b->buff, BUFF_SIZE + 1);
 		b->pos = 0;
 		b->len += i;
 		str += i;
 		n -= i;
 	}
-	ft_memcpy((b->buff) + b->pos, str, n);
+	ft_memcpyp((b->buff) + b->pos, str, n);
 	b->len += n;
 	b->pos += n;
 }
@@ -70,7 +67,7 @@ int			ft_vfprintf(int fd, const char *format, va_list args)
 
 	if (!format)
 		return (-1);
-	ft_memset(&b, 0, sizeof(t_buff));
+	ft_memsetp(&b, 0, sizeof(t_buff));
 	b.fd = fd;
 	ft_readf(format, &b, args);
 	write(b.fd, &(b.buff), b.pos);

@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:43:01 by fbabin            #+#    #+#             */
-/*   Updated: 2018/06/19 16:20:53 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/07/06 14:06:19 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <locale.h>
-# include "libft.h"
 
 /*
 ** --------------------------------- DEFINES ---------------------------------
@@ -85,8 +84,6 @@ typedef struct			s_printf
 */
 
 int						ft_printf(const char *restrict format, ...);
-int						ft_sprintf(char **str, const char *restrict format,
-							...);
 int						ft_dprintf(int fd, const char *restrict format, ...);
 int						ft_vfprintf(int fd, const char *restrict format,
 							va_list args);
@@ -125,5 +122,16 @@ int						ft_wcharlen(wchar_t wc);
 void					ft_lltoa_static(char *str, long long nb);
 void					ft_llutoa_base_static(char *str,
 								unsigned long long nb, const char *base);
+
+void					*ft_memsetp(void *b, int c, size_t len);
+void					ft_bzerop(void *s, size_t n);
+void					*ft_memcpyp(void *dst, const void *src, size_t n);
+int						ft_charinsetp(char c, const char *charset);
+int						ft_isdigitp(int c);
+int						ft_absp(int nb);
+size_t					ft_strlenp(const char *s);
+int						ft_atoip(const char *str);
+unsigned long long		ft_atollup(const char *str);
+int						ft_isspacep(char c);
 
 #endif

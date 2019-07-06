@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 21:21:31 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/16 12:09:00 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/07/06 14:15:00 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,13 @@ void		ft_handle_other(t_buff *b, t_printf *t, char flag)
 	ft_padding_a(b, t, 1);
 }
 
-void		ft_handle_float(t_buff *b, t_printf *t, va_list args)
-{
-	double		nb;
-	char		*str;
-	int			len;
-
-	t->mod1 = (t->flag == 'F') ? 'l' : t->mod1;
-	nb = va_arg(args, double);
-	if (t->prec == -1)
-	{
-		if (!(str = ft_strnew(0)))
-			return ;
-	}
-	else if (t->prec == 0)
-		str = ft_ftoa(nb, 6);
-	else
-		str = ft_ftoa(nb, t->prec);
-	len = ft_strlen(str);
-	len = (t->prec == -1) ? 0 : len;
-	ft_padding_b(b, t, len);
-	bflush(b, str, len);
-	ft_padding_a(b, t, len);
-	free(str);
-}
-
 void		ft_handle_colors_bis(t_buff *b, int nb, char end)
 {
-	char	*str;
+	char	str[23];
 
-	str = ft_itoa(nb);
-	bflush(b, str, ft_strlen(str));
-	free(str);
+	ft_bzerop((char*)&str, 23);
+	ft_lltoa_static((char *)&str, (long long)nb);
+	bflush(b, str, ft_strlenp(str));
 	bflush(b, &end, 1);
 }
 

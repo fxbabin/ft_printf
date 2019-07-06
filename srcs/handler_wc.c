@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 16:10:52 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/15 23:27:22 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/07/06 14:11:00 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_getwchar(t_buff *b, wchar_t wc, int len)
 {
 	char	tmp[5];
 
-	ft_bzero(&tmp, 5);
+	ft_bzerop(&tmp, 5);
 	if ((wc <= 127 && MB_CUR_MAX >= 1) || (wc <= 255 && MB_CUR_MAX == 1))
 		tmp[0] = wc;
 	else if (wc <= 2047 && MB_CUR_MAX >= 2)

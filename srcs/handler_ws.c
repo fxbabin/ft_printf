@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 00:30:34 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/15 23:28:26 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/07/06 14:12:47 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void			ft_handle_wstr(t_buff *b, t_printf *t, va_list args)
 			ft_handle_nullstr(b, t);
 			return ;
 		}
-		len = (t->prec > 0 && t->prec < (int)ft_strlen(tm)) ?
-			t->prec : ft_strlen(tm);
+		len = (t->prec > 0 && t->prec < (int)ft_strlenp(tm)) ?
+			t->prec : ft_strlenp(tm);
 		len = (t->prec == -1) ? 0 : len;
 		ft_padding_b(b, t, len);
 		if (t->prec != -1)
