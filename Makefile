@@ -6,17 +6,18 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 17:49:24 by fbabin            #+#    #+#              #
-#    Updated: 2019/07/06 13:40:48 by fbabin           ###   ########.fr        #
+#    Updated: 2019/07/06 14:36:36 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	libftprintf.a
 
 CC				=	gcc
-CFLAGS			=	-Wall -Werror -Wextra -Ofast
+CFLAGS			=	-Wall -Werror -Wextra
 
 _SRCS			=	ft_printf.c padding.c xtract.c handler_wc.c \
 					handler_ws.c handler_num.c handler_fnk.c utils.c utils2.c \
+					utils3.c
 
 SRCS_DIR		=	srcs
 SRCS			=	$(addprefix $(SRCS_DIR)/, $(_SRCS))

@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 13:30:29 by fbabin            #+#    #+#             */
-/*   Updated: 2019/07/06 14:16:10 by fbabin           ###   ########.fr       */
+/*   Updated: 2019/07/06 14:37:03 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int						ft_absp(int nb)
 	return ((nb < 0) ? -nb : nb);
 }
 
-int						ft_isdigit(int c)
+int						ft_isdigitp(int c)
 {
 	return (c >= '0' && c <= '9');
 }
